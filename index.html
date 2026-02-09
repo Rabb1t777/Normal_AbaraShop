@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>UNICORN | Строгий стиль</title>
+    <title>AbaraShop | Строгий стиль</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
@@ -16,13 +16,13 @@
             --text-secondary: #4a5568;
             --border-color: #e2e8f0;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
             background-color: var(--light-bg);
@@ -30,13 +30,13 @@
             line-height: 1.6;
             min-height: 100vh;
         }
-
+        
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 15px;
         }
-
+        
         /* Заголовок */
         .header {
             display: flex;
@@ -46,19 +46,19 @@
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 20px;
         }
-
+        
         .logo {
             font-size: 24px;
             font-weight: 700;
             color: var(--primary-color);
         }
-
+        
         .search-bar {
             width: 100%;
             max-width: 500px;
             margin: 15px 0;
         }
-
+        
         .search-input {
             width: 100%;
             padding: 12px 20px;
@@ -68,7 +68,7 @@
             background-color: var(--card-bg);
             color: var(--text-primary);
         }
-
+        
         /* Баннеры */
         .banner {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -79,23 +79,23 @@
             overflow: hidden;
             position: relative;
         }
-
+        
         .banner-content {
             position: relative;
             z-index: 2;
         }
-
+        
         .banner h2 {
             font-size: 24px;
             margin-bottom: 10px;
         }
-
+        
         .banner p {
             opacity: 0.9;
             max-width: 600px;
             margin-bottom: 15px;
         }
-
+        
         .banner-button {
             background-color: var(--accent-color);
             color: white;
@@ -106,7 +106,7 @@
             cursor: pointer;
             font-weight: 600;
         }
-
+        
         /* Карточки */
         .section-title {
             font-size: 20px;
@@ -116,21 +116,21 @@
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .section-title a {
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 500;
             font-size: 15px;
         }
-
+        
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-
+        
         .card {
             background: var(--card-bg);
             border-radius: 10px;
@@ -138,11 +138,11 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             transition: transform 0.2s;
         }
-
+        
         .card:hover {
             transform: translateY(-5px);
         }
-
+        
         .card-img {
             width: 100%;
             height: 200px;
@@ -153,38 +153,38 @@
             color: var(--text-secondary);
             font-size: 14px;
         }
-
+        
         .card-content {
             padding: 15px;
         }
-
+        
         .card-title {
             font-weight: 600;
             font-size: 16px;
             margin-bottom: 8px;
             color: var(--text-primary);
         }
-
+        
         .card-price {
             font-weight: 700;
             font-size: 18px;
             color: var(--primary-color);
             margin-bottom: 5px;
         }
-
+        
         .card-old-price {
             text-decoration: line-through;
             color: var(--text-secondary);
             font-size: 14px;
         }
-
+        
         .card-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 15px;
         }
-
+        
         .like-button {
             background: none;
             border: none;
@@ -192,7 +192,7 @@
             font-size: 18px;
             cursor: pointer;
         }
-
+        
         /* Кнопка действия */
         .action-button {
             background: var(--primary-color);
@@ -206,11 +206,11 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-
+        
         .action-button:hover {
             background: var(--secondary-color);
         }
-
+        
         /* Навигация */
         .nav-bar {
             display: flex;
@@ -224,7 +224,7 @@
             max-width: 1000px;
             margin: 0 auto;
         }
-
+        
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -233,16 +233,16 @@
             text-decoration: none;
             font-size: 12px;
         }
-
+        
         .nav-item.active {
             color: var(--primary-color);
         }
-
+        
         .nav-icon {
             font-size: 20px;
             margin-bottom: 4px;
         }
-
+        
         /* Акцентные элементы */
         .accent-box {
             background: var(--accent-color);
@@ -251,7 +251,7 @@
             padding: 15px;
             margin: 20px 0;
         }
-
+        
         .accent-box h3 {
             font-size: 18px;
             margin-bottom: 10px;
@@ -261,16 +261,16 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">UNICORN</div>
+            <div class="logo">AbaraShop</div>
             <div class="user-balance">
                 <span>Баллы: <strong>0</strong></span>
             </div>
         </div>
-
+        
         <div class="search-bar">
-            <input type="text" class="search-input" placeholder="Найти в Unicorn">
+            <input type="text" class="search-input" placeholder="Найти в AbaraShop">
         </div>
-
+        
         <div class="banner">
             <div class="banner-content">
                 <h2>Конкурс с 2 победителями</h2>
@@ -278,12 +278,12 @@
                 <button class="banner-button">Участвовать</button>
             </div>
         </div>
-
+        
         <div class="section-title">
             <span>Бренды</span>
             <a href="#">Все</a>
         </div>
-
+        
         <div class="cards-grid">
             <div class="card">
                 <div class="card-img">Nike</div>
@@ -296,7 +296,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="card">
                 <div class="card-img">New Balance</div>
                 <div class="card-content">
@@ -308,7 +308,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="card">
                 <div class="card-img">Adidas</div>
                 <div class="card-content">
@@ -321,12 +321,12 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="section-title">
             <span>Бестселлеры</span>
             <a href="#">Все</a>
         </div>
-
+        
         <div class="cards-grid">
             <div class="card">
                 <div class="card-img">Nike Air Force 1</div>
@@ -339,7 +339,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="card">
                 <div class="card-img">Timberland</div>
                 <div class="card-content">
@@ -351,7 +351,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="card">
                 <div class="card-img">Nike Dunk</div>
                 <div class="card-content">
@@ -364,15 +364,15 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="accent-box">
             <h3>Скидки в корзине!</h3>
             <p>- 1 000₽ на второй<br>- 1 500₽ на третий<br>- 2 000₽ на четвертый</p>
         </div>
-
+        
         <button class="action-button">Выбрать и заказать</button>
     </div>
-
+    
     <div class="nav-bar">
         <a href="#" class="nav-item active">
             <div class="nav-icon">🏠</div>
@@ -395,14 +395,14 @@
             <span>Профиль</span>
         </a>
     </div>
-
+    
     <script>
         // Инициализация Telegram Web Apps
         const tg = window.Telegram.WebApp;
-
+        
         tg.expand();
         tg.ready();
-
+        
         // Настройка темной темы
         if (tg.colorScheme === 'dark') {
             document.documentElement.style.setProperty('--primary-color', '#1a3a5f');
@@ -413,7 +413,7 @@
             document.documentElement.style.setProperty('--text-secondary', '#94a3b8');
             document.documentElement.style.setProperty('--border-color', '#334155');
         }
-
+        
         // Обработка нажатия на кнопку
         document.querySelector('.action-button').addEventListener('click', () => {
             tg.sendData(JSON.stringify({
@@ -421,7 +421,7 @@
                 timestamp: new Date().toISOString()
             }));
         });
-
+        
         // Обработка кнопки "Назад"
         tg.onEvent('backButtonClicked', () => {
             tg.close();
