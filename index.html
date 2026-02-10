@@ -317,6 +317,7 @@
             justify-content: space-between;
             padding: 12px 0;
             border-bottom: 1px solid var(--border);
+            cursor: pointer;
         }
 
         .profile-item:last-child {
@@ -332,12 +333,6 @@
             background: #f1f3f4;
             border-radius: 6px;
             margin-right: 12px;
-        }
-
-        .profile-item .icon svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
         }
 
         .profile-item .value {
@@ -532,7 +527,7 @@
             <div class="profile-section">
                 <div class="profile-header">
                     <div class="profile-avatar">👤</div>
-                    <div class="profile-name" id="user-name">yOri</div>
+                    <div class="profile-name" id="user-name">Пользователь</div>
                 </div>
 
                 <!-- Рабочие кнопки -->
@@ -608,7 +603,6 @@
             </div>
         </div>
 
-
         <!-- Избранное -->
         <div id="favorites-section" class="section">
             <div class="header">
@@ -635,7 +629,7 @@
                 <div class="header-title">Главная</div>
             </div>
             <p style="text-align: center; padding: 40px 0; color: var(--text-secondary);">
-                Добро пожаловать в AbaraShop!
+                Добро пожаловать в AbaraShop!  
                 Перейдите в <strong>Каталог</strong>, чтобы начать покупки.
             </p>
         </div>
@@ -743,7 +737,12 @@
         // Переключение страниц
         function switchPage(page) {
             document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-            document.getElementById(page + '-section').classList.add('active');
+            const targetSection = document.getElementById(page + '-section');
+            if (targetSection) {
+                targetSection.classList.add('active');
+            } else {
+                document.getElementById('catalog-section').classList.add('active');
+            }
 
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
@@ -768,7 +767,7 @@
         function showProducts(category) {
             currentState.currentCategory = category;
             document.getElementById('products-title').textContent = categoryNames[category] || 'Товары';
-
+            
             let productsToShow = [];
             if (category === 'obuv') {
                 productsToShow = [...products.krossovki, ...products.botinki, ...products.custom, ...products.sport, ...products.tapki, ...products.sapogi];
@@ -789,7 +788,7 @@
                             <div class="product-title">${product.name}</div>
                             <div class="product-price">${product.price.toLocaleString()} ₽</div>
                             <div class="product-actions">
-                                <button class="like-button ${favorites.includes(product.id) ? 'liked' : ''}"
+                                <button class="like-button ${favorites.includes(product.id) ? 'liked' : ''}" 
                                         onclick="toggleFavorite('${product.id}', this)">
                                     ♥
                                 </button>
@@ -868,7 +867,7 @@
         function renderFavorites() {
             const container = document.getElementById('favorites-container');
             const favProducts = Object.values(products).flat().filter(p => favorites.includes(p.id));
-
+            
             if (favProducts.length === 0) {
                 container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--text-secondary);">Нет товаров в избранном</p>';
             } else {
@@ -896,7 +895,7 @@
         function renderCart() {
             const container = document.getElementById('cart-container');
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
+            
             if (cart.length === 0) {
                 container.innerHTML = '<p class="cart-empty">Ваша корзина пуста</p>';
             } else {
@@ -934,45 +933,7 @@
             tg.close();
         }
 
-        // Обработчики навигации
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', () => {
-                switchPage(item.dataset.page);
-            });
-        });
-
-        // Обработчики вкладок
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-
-        // Обработка кнопки "Назад"
-        tg.onEvent('backButtonClicked', () => {
-            if (currentState.page === 'products') {
-                switchPage('catalog');
-            } else if (currentState.page !== 'catalog') {
-                switchPage('catalog');
-            } else {
-                tg.close();
-            }
-        });
-
-        // Инициализация
-        function updateProfileName() {
-            const user = tg.initDataUnsafe?.user;
-            const nameEl = document.getElementById('user-name');
-            if (user) {
-                nameEl.textContent = `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'yOri';
-            }
-        }
-
-        updateProfileName();
-        updateCartBadge();
-
-                // === ФУНКЦИИ ПРОФИЛЯ ===
+        // === ФУНКЦИИ ПРОФИЛЯ ===
 
         // Установить эмодзи
         function setEmoji() {
@@ -1000,7 +961,6 @@
                 tg.requestContact((user) => {
                     if (user) {
                         tg.showAlert(`Спасибо! Ваш номер сохранён: ${user.phone_number || '—'}`);
-                        // Здесь можно отправить данные боту
                         tg.sendData(JSON.stringify({
                             action: 'save_phone',
                             phone: user.phone_number
@@ -1042,9 +1002,9 @@
         function inviteFriend() {
             const botUsername = 'AbaraShop_bot'; // Замените на ваш username
             const referralLink = `https://t.me/${botUsername}?start=ref_${tg.initDataUnsafe?.user?.id || 'user'}`;
-
-            tg.shareToStory(referralLink, {
-                text: 'Присоединяйся к Abara Shop! Получи 500₽ за регистрацию 👟'
+            
+            tg.shareToStory(referralLink, { 
+                text: 'Присоединяйся к AbaraShop! Получи 500₽ за регистрацию 👟'
             }, () => {
                 tg.showAlert('Ссылка скопирована! Поделитесь ею с друзьями.');
             });
@@ -1055,35 +1015,43 @@
             tg.openTelegramLink('https://t.me/AbaraShop_bot?start=support');
         }
 
-        // Заглушки для новых разделов
-        function switchPage(page) {
-            if (['orders', 'reviews', 'viewed'].includes(page)) {
-                tg.showAlert(`Раздел "${page}" будет доступен в следующем обновлении.`);
-                return;
-            }
-
-            // Скрыть все секции
-            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-            // Показать нужную (или каталог, если нет)
-            const targetSection = document.getElementById(page + '-section');
-            if (targetSection) {
-                targetSection.classList.add('active');
-            } else {
-                document.getElementById('catalog-section').classList.add('active');
-            }
-
-            // Обновить навигацию
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-                if (item.dataset.page === page) {
-                    item.classList.add('active');
-                }
+        // Обработчики навигации
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                switchPage(item.dataset.page);
             });
+        });
 
-            currentState.page = page;
+        // Обработчики вкладок
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Обработка кнопки "Назад"
+        tg.onEvent('backButtonClicked', () => {
+            if (currentState.page === 'products') {
+                switchPage('catalog');
+            } else if (currentState.page !== 'catalog') {
+                switchPage('catalog');
+            } else {
+                tg.close();
+            }
+        });
+
+        // Инициализация
+        function updateProfileName() {
+            const user = tg.initDataUnsafe?.user;
+            const nameEl = document.getElementById('user-name');
+            if (user) {
+                nameEl.textContent = `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'Пользователь';
+            }
         }
+
+        updateProfileName();
+        updateCartBadge();
     </script>
 </body>
 </html>
-
-
