@@ -535,15 +535,16 @@
                     <div class="profile-name" id="user-name">yOri</div>
                 </div>
 
-                <div class="profile-item">
+                <!-- Рабочие кнопки -->
+                <div class="profile-item" onclick="setEmoji()">
                     <div class="icon">💬</div>
-                    <span>Установить AbaraShop эмоджи</span>
+                    <span>Установить UNICORN эмодзи</span>
                 </div>
-                <div class="profile-item">
+                <div class="profile-item" onclick="addToHomeScreen()">
                     <div class="icon">➕</div>
                     <span>Добавить на экран «Домой»</span>
                 </div>
-                <div class="profile-item">
+                <div class="profile-item" onclick="requestContact()">
                     <div class="icon">📞</div>
                     <span>Добавить номер телефона</span>
                 </div>
@@ -552,43 +553,43 @@
                     Старые заказы появятся в приложении автоматически после того, как вы добавите свой номер телефона
                 </p>
 
-                <div class="profile-item">
+                <div class="profile-item" onclick="setShippingAddress()">
                     <div class="icon">📍</div>
                     <span>Данные доставки</span>
                     <span class="value">→</span>
                 </div>
-                <div class="profile-item">
+                <div class="profile-item" onclick="setCustomsData()">
                     <div class="icon">📦</div>
                     <span>Данные для таможни</span>
                     <span class="value">→</span>
                 </div>
-                <div class="profile-item">
+                <div class="profile-item" onclick="inviteFriend()">
                     <div class="icon">👥</div>
                     <span>Пригласить друга</span>
                     <span class="value">+500 ₽ →</span>
                 </div>
-                <div class="profile-item">
+                <div class="profile-item" onclick="openSupport()">
                     <div class="icon">⚙️</div>
                     <span>Поддержка</span>
                     <span class="value">→</span>
                 </div>
 
-                <div class="profile-item">
+                <div class="profile-item" onclick="switchPage('orders')">
                     <div class="icon">🛒</div>
                     <span>Заказы</span>
                     <span class="value">0 →</span>
                 </div>
-                <div class="profile-item">
+                <div class="profile-item" onclick="switchPage('reviews')">
                     <div class="icon">⭐</div>
                     <span>Отзывы</span>
                     <span class="value">→</span>
                 </div>
-                <div class="profile-item">
+                <div class="profile-item" onclick="switchPage('favorites')">
                     <div class="icon">❤️</div>
                     <span>Избранное</span>
                     <span class="value">→</span>
                 </div>
-                <div class="profile-item">
+                <div class="profile-item" onclick="switchPage('viewed')">
                     <div class="icon">👀</div>
                     <span>Просмотренные товары</span>
                     <span class="value">→</span>
@@ -606,6 +607,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- Избранное -->
         <div id="favorites-section" class="section">
@@ -633,7 +635,7 @@
                 <div class="header-title">Главная</div>
             </div>
             <p style="text-align: center; padding: 40px 0; color: var(--text-secondary);">
-                Добро пожаловать в AbaraShop!  
+                Добро пожаловать в AbaraShop!
                 Перейдите в <strong>Каталог</strong>, чтобы начать покупки.
             </p>
         </div>
@@ -766,7 +768,7 @@
         function showProducts(category) {
             currentState.currentCategory = category;
             document.getElementById('products-title').textContent = categoryNames[category] || 'Товары';
-            
+
             let productsToShow = [];
             if (category === 'obuv') {
                 productsToShow = [...products.krossovki, ...products.botinki, ...products.custom, ...products.sport, ...products.tapki, ...products.sapogi];
@@ -787,7 +789,7 @@
                             <div class="product-title">${product.name}</div>
                             <div class="product-price">${product.price.toLocaleString()} ₽</div>
                             <div class="product-actions">
-                                <button class="like-button ${favorites.includes(product.id) ? 'liked' : ''}" 
+                                <button class="like-button ${favorites.includes(product.id) ? 'liked' : ''}"
                                         onclick="toggleFavorite('${product.id}', this)">
                                     ♥
                                 </button>
@@ -866,7 +868,7 @@
         function renderFavorites() {
             const container = document.getElementById('favorites-container');
             const favProducts = Object.values(products).flat().filter(p => favorites.includes(p.id));
-            
+
             if (favProducts.length === 0) {
                 container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--text-secondary);">Нет товаров в избранном</p>';
             } else {
@@ -894,7 +896,7 @@
         function renderCart() {
             const container = document.getElementById('cart-container');
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
+
             if (cart.length === 0) {
                 container.innerHTML = '<p class="cart-empty">Ваша корзина пуста</p>';
             } else {
@@ -969,6 +971,118 @@
 
         updateProfileName();
         updateCartBadge();
+
+                // === ФУНКЦИИ ПРОФИЛЯ ===
+
+        // Установить эмодзи
+        function setEmoji() {
+            tg.showAlert('Перейдите в Настройки Telegram → Эмодзи и выберите UNICORN как основной пакет.');
+        }
+
+        // Добавить на главный экран
+        function addToHomeScreen() {
+            if (tg.isVersionAtLeast(6, 4)) {
+                tg.requestWriteAccess((ok) => {
+                    if (ok) {
+                        tg.showAlert('Теперь вы можете добавить Mini App на главный экран через меню Telegram!');
+                    } else {
+                        tg.showAlert('Разрешите доступ к уведомлениям для добавления на главный экран.');
+                    }
+                });
+            } else {
+                tg.showAlert('Обновите Telegram до последней версии для этой функции.');
+            }
+        }
+
+        // Запросить контакт
+        function requestContact() {
+            if (tg.isVersionAtLeast(6, 7)) {
+                tg.requestContact((user) => {
+                    if (user) {
+                        tg.showAlert(`Спасибо! Ваш номер сохранён: ${user.phone_number || '—'}`);
+                        // Здесь можно отправить данные боту
+                        tg.sendData(JSON.stringify({
+                            action: 'save_phone',
+                            phone: user.phone_number
+                        }));
+                    }
+                });
+            } else {
+                tg.showAlert('Эта функция доступна в Telegram 8.7+');
+            }
+        }
+
+        // Указать адрес доставки
+        function setShippingAddress() {
+            tg.showPopup({
+                title: 'Адрес доставки',
+                message: 'Введите ваш полный адрес доставки:',
+                buttons: [{ type: 'default', text: 'Отмена' }]
+            }, (buttonId) => {
+                if (buttonId !== 'cancel') {
+                    tg.showAlert('Адрес сохранён!');
+                }
+            });
+        }
+
+        // Данные для таможни
+        function setCustomsData() {
+            tg.showPopup({
+                title: 'Таможенные данные',
+                message: 'Введите ФИО и паспортные данные для международных заказов:',
+                buttons: [{ type: 'default', text: 'Отмена' }]
+            }, (buttonId) => {
+                if (buttonId !== 'cancel') {
+                    tg.showAlert('Данные сохранены!');
+                }
+            });
+        }
+
+        // Пригласить друга
+        function inviteFriend() {
+            const botUsername = 'AbaraShop_bot'; // Замените на ваш username
+            const referralLink = `https://t.me/${botUsername}?start=ref_${tg.initDataUnsafe?.user?.id || 'user'}`;
+
+            tg.shareToStory(referralLink, {
+                text: 'Присоединяйся к Abara Shop! Получи 500₽ за регистрацию 👟'
+            }, () => {
+                tg.showAlert('Ссылка скопирована! Поделитесь ею с друзьями.');
+            });
+        }
+
+        // Открыть поддержку
+        function openSupport() {
+            tg.openTelegramLink('https://t.me/AbaraShop_bot?start=support');
+        }
+
+        // Заглушки для новых разделов
+        function switchPage(page) {
+            if (['orders', 'reviews', 'viewed'].includes(page)) {
+                tg.showAlert(`Раздел "${page}" будет доступен в следующем обновлении.`);
+                return;
+            }
+
+            // Скрыть все секции
+            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+            // Показать нужную (или каталог, если нет)
+            const targetSection = document.getElementById(page + '-section');
+            if (targetSection) {
+                targetSection.classList.add('active');
+            } else {
+                document.getElementById('catalog-section').classList.add('active');
+            }
+
+            // Обновить навигацию
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.page === page) {
+                    item.classList.add('active');
+                }
+            });
+
+            currentState.page = page;
+        }
     </script>
 </body>
 </html>
+
